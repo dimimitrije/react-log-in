@@ -44,7 +44,6 @@ export default function App() {
   }, [userState])
 
   useEffect(() => {
-    console.log('da')
     if (Cookies.get('Token')) {
       setLoggedIn(true)
       getUser()
@@ -53,7 +52,6 @@ export default function App() {
   }, [])
 
   const handleLogin = () => {
-    console.log('dadada')
     setLoggedIn(true)
     getUser()
   }

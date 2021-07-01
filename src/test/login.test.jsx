@@ -21,7 +21,7 @@ describe("Login render Page", () => {
     container.remove()
   })
 
-  it('Insert credentials', async () => {
+  it('Insert credentials - Login', async () => {
     act(() => {
       render(<App />, { wrapper: MemoryRouter })
     })
@@ -41,7 +41,7 @@ describe("Login render Page", () => {
     })
   });
 
-  it('Insert credentials', async () => {
+  it('Click on Logout', async () => {
     Cookies.set('Token', '9157bc44-2230-4831-a2b4-646ba039c03b')
     act(() => {
       render(<App />, { wrapper: MemoryRouter })
