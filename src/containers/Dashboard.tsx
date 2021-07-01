@@ -17,8 +17,8 @@ export default function Dashboard() {
   }, []);
  
   return (
-    <div className='container'>
-    <div className="card dashboard">
+    <div className="container">
+    <div id="dashboard" className="card dashboard">
       <h1>Welcome to Dashboard</h1>
       <Clock value={value} />
     </div>

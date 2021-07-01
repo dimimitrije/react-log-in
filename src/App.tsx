@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import client from './api/axios';
 import './App.css';
 import AppRouter from './components/AppRouter';
@@ -21,7 +21,7 @@ export default function App() {
     username: '',
     firstName: '',
     lastName: '',
-    setUser: setUser,
+    setUser,
   })
 
   function setUser(username: string, firstName: string, lastName: string) {
@@ -32,24 +32,28 @@ export default function App() {
       lastName
     })
   }
-  async function getUser() {
+
+  const getUser = useCallback(async () => {
     try {
       const result: UserResult = await client.get('/user')
       const { username, firstName, lastName } = result.data
-      userState.setUser(username, firstName, lastName)
+      setUserState({ ...userState, username, firstName, lastName })
     } catch (error) {
       console.log(error)
     }
-  }
+  }, [userState])
 
   useEffect(() => {
+    console.log('da')
     if (Cookies.get('Token')) {
       setLoggedIn(true)
       getUser()
     }
-  }, [getUser])
+    // eslint-disable-next-line
+  }, [])
 
   const handleLogin = () => {
+    console.log('dadada')
     setLoggedIn(true)
     getUser()
   }

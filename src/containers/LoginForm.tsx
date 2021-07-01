@@ -5,7 +5,7 @@ import * as Yup from "yup"; // used when validating with a pre-built solution
 import useLogin from "../hooks/useLogin";
 import { useEffect } from "react";
 import { Redirect } from "react-router-dom";
-import { ContainerProps } from "reactstrap";
+import { act } from "react-dom/test-utils";
 
 interface LoginFormProps {
     handleLogin: () => void;
@@ -23,13 +23,17 @@ export default function LoginForm(props: LoginFormProps) {
 
     useEffect(() => {
         if (login.token !== '') {
-            setError(false)
-            handleLogin()
-            Cookies.set('Token', login.token)
+            act(()=>{
+                setError(false)
+                handleLogin()
+                Cookies.set('Token', login.token)
+            })
+
         } else if (login.error !== '') {
             setError(true)
         }
-    }, [login, handleLogin])
+    },[credentials, login, handleLogin])
+
 
 
     const redirectRoute = <Redirect to='/dashboard' />
@@ -37,12 +41,13 @@ export default function LoginForm(props: LoginFormProps) {
         initialValues={{ username: "", password: "" }}
         onSubmit={(values, { setSubmitting }) => {
             const { username, password } = values
-            setSubmitting(false);
-            setCredentials({
-                username,
-                password
+            act(() => {
+                setSubmitting(false);
+                setCredentials({
+                    username,
+                    password
+                })
             })
-            setSubmitting(true);
         }}
         validationSchema={Yup.object().shape({
             username: Yup.string().required('Required'),
@@ -103,7 +108,7 @@ export default function LoginForm(props: LoginFormProps) {
                             <button id="submit-id" type="submit" disabled={isSubmitting}>Sign in</button>
                         </div>
                     </form>
-                    </div>
+                </div>
             )
         }}
     </Formik>

@@ -34,7 +34,7 @@ export default function useLogin(username: string, password: string) {
       }
     }
     login()
-  });
+  }, [username, password]);
 
   return loginState
 }

@@ -22,7 +22,7 @@ export default function CustomNavbar(props: CustomNavbarProps) {
             <NavLink href="/dashboard">Dashboard</NavLink>
           </NavItem>
           <NavItem>
-            {isLoggedin ? <NavLink href="/" onClick={handleLogOut}>Log out</NavLink> : <NavLink href="/login">Log in</NavLink>}
+            {isLoggedin ? <NavLink id="logoutNav" href="/" onClick={handleLogOut}>Log out</NavLink> : <NavLink id="loginNav" href="/login">Log in</NavLink>}
           </NavItem>
         </Nav>
         <NavbarText>{user.firstName} {user.lastName}</NavbarText>
